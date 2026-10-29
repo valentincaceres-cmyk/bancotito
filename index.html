@@ -1,0 +1,265 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TITO BANK | Tu banco digital</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+
+  <!-- INICIO DE SESION -->
+  <section id="login" class="login-screen">
+    <div class="login-card">
+      <div class="brand">
+        <span class="brand-icon">T</span>
+        <span>TITO <b>BANK</b></span>
+      </div>
+      <p class="subtitle">Tu dinero, siempre cerca.</p>
+
+      <form id="loginForm">
+        <label for="email">Correo electrónico</label>
+        <input id="email" type="email"
+          placeholder="tu@correo.com" required>
+
+        <label for="password">Contraseña de demostración</label>
+        <input id="password" type="password"
+          placeholder="Ingresá tu contraseña" required>
+
+        <button class="primary-btn" type="submit">
+          Iniciar sesión
+        </button>
+        <p id="loginError" class="error"></p>
+      </form>
+
+      <small>Demo educativa: usá cualquier correo válido
+        y una contraseña de al menos 4 caracteres.</small>
+    </div>
+  </section>
+
+  <!-- APLICACION BANCARIA -->
+  <div id="app" class="app hidden">
+    <aside class="sidebar">
+      <div class="brand">
+        <span class="brand-icon">T</span>
+        <span>TITO <b>BANK</b></span>
+      </div>
+
+      <p class="menu-title">MENÚ PRINCIPAL</p>
+      <nav>
+        <button class="nav-btn active" data-section="inicio">⌂ Inicio</button>
+        <button class="nav-btn" data-section="cuentas">▣ Mi cuenta</button>
+        <button class="nav-btn" data-section="transferencias">⇄ Transferencias</button>
+        <button class="nav-btn" data-section="pagos">▤ Pagos</button>
+        <button class="nav-btn" data-section="ahorros">◈ Ahorros y gastos</button>
+        <button class="nav-btn" data-section="notificaciones">♧ Notificaciones</button>
+        <button class="nav-btn" data-section="asistente">✦ TITO IA</button>
+      </nav>
+
+      <button id="logout" class="logout-btn">↪ Cerrar sesión</button>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">TU BANCO DIGITAL</p>
+          <h1 id="pageTitle">Inicio</h1>
+        </div>
+        <div class="user-info">
+          <span class="avatar">T</span>
+          <span id="userName">Usuario</span>
+        </div>
+      </header>
+
+      <!-- INICIO -->
+      <section id="inicio" class="page-section">
+        <div class="welcome">
+          <h2>¡Hola, <span id="welcomeName">Usuario</span>!</h2>
+          <p>Este es el resumen de tus finanzas.</p>
+        </div>
+
+        <div class="dashboard-grid">
+          <article class="balance-card">
+            <p>Saldo disponible (demo)</p>
+            <h2 id="balance">$ 850.000,00</h2>
+            <p>Cuenta digital · •••• 7890</p>
+            <button id="toggleBalance" class="light-btn">
+              Ocultar saldo
+            </button>
+          </article>
+
+          <article class="stat-card">
+            <span class="stat-icon">↗</span>
+            <p>Ingresos del mes</p>
+            <h3 id="income">$ 0,00</h3>
+          </article>
+
+          <article class="stat-card">
+            <span class="stat-icon">↘</span>
+            <p>Gastos del mes</p>
+            <h3 id="expenses">$ 0,00</h3>
+          </article>
+        </div>
+
+        <h2 class="section-heading">Accesos rápidos</h2>
+        <div class="quick-actions">
+          <button class="action-card" data-go="transferencias">
+            <span>⇄</span> Transferir dinero
+          </button>
+          <button class="action-card" data-go="pagos">
+            <span>▤</span> Pagar servicios
+          </button>
+          <button class="action-card" data-go="ahorros">
+            <span>◈</span> Mis ahorros
+          </button>
+          <button class="action-card" data-go="asistente">
+            <span>✦</span> Consultar a TITO IA
+          </button>
+        </div>
+
+        <article class="card">
+          <div class="card-heading">
+            <h2>Últimos movimientos</h2>
+          </div>
+          <div id="movementList"></div>
+        </article>
+      </section>
+
+      <!-- CUENTA -->
+      <section id="cuentas" class="page-section hidden">
+        <article class="card">
+          <h2>Datos de mi cuenta</h2>
+          <p>Tipo de cuenta: Cuenta digital de demostración</p>
+          <p>Alias: TITO.DEMO.CUENTA</p>
+          <p>CBU ficticio: 0000000000000000000000</p>
+          <p>Estado: <span class="status">Activa (demo)</span></p>
+          <p>Saldo: <strong id="accountBalance"></strong></p>
+          <p class="notice">Estos datos no corresponden a una cuenta bancaria real.</p>
+        </article>
+      </section>
+
+      <!-- TRANSFERENCIAS -->
+      <section id="transferencias" class="page-section hidden">
+        <article class="card form-card">
+          <h2>Transferir dinero</h2>
+          <p>Completá los datos del destinatario.</p>
+          <form id="transferForm">
+            <label for="recipient">Nombre del destinatario</label>
+            <input id="recipient" required maxlength="60"
+              placeholder="Ej. Juan Pérez">
+
+            <label for="destination">Alias o CBU/CVU ficticio</label>
+            <input id="destination" required maxlength="80"
+              placeholder="Ej. juan.demo.cuenta">
+
+            <label for="transferAmount">Importe en pesos</label>
+            <input id="transferAmount" type="number"
+              min="0.01" step="0.01" required placeholder="0,00">
+
+            <label for="transferNote">Concepto (opcional)</label>
+            <input id="transferNote" maxlength="100"
+              placeholder="Ej. Gastos compartidos">
+
+            <button class="primary-btn" type="submit">
+              Revisar transferencia
+            </button>
+          </form>
+          <div id="transferReview" class="review hidden"></div>
+          <p id="transferMessage" aria-live="polite"></p>
+        </article>
+      </section>
+
+      <!-- PAGOS -->
+      <section id="pagos" class="page-section hidden">
+        <article class="card form-card">
+          <h2>Pagar un servicio</h2>
+          <form id="paymentForm">
+            <label for="service">Servicio</label>
+            <select id="service" required>
+              <option value="">Seleccioná un servicio</option>
+              <option>Electricidad</option>
+              <option>Agua</option>
+              <option>Internet</option>
+              <option>Telefonía</option>
+            </select>
+
+            <label for="paymentAmount">Importe en pesos</label>
+            <input id="paymentAmount" type="number"
+              min="0.01" step="0.01" required placeholder="0,00">
+
+            <button class="primary-btn" type="submit">
+              Revisar pago
+            </button>
+          </form>
+          <div id="paymentReview" class="review hidden"></div>
+          <p id="paymentMessage" aria-live="polite"></p>
+        </article>
+      </section>
+
+      <!-- AHORROS Y GASTOS -->
+      <section id="ahorros" class="page-section hidden">
+        <article class="card form-card">
+          <h2>Objetivo de ahorro</h2>
+          <form id="savingForm">
+            <label for="goalName">Nombre de tu objetivo</label>
+            <input id="goalName" required maxlength="60"
+              placeholder="Ej. Comprar una computadora">
+
+            <label for="goalAmount">Importe objetivo en pesos</label>
+            <input id="goalAmount" type="number"
+              min="1" step="0.01" required placeholder="100000">
+
+            <button class="primary-btn" type="submit">
+              Crear objetivo
+            </button>
+          </form>
+          <div id="savingGoals"></div>
+        </article>
+
+        <article class="card">
+          <h2>Resumen de gastos</h2>
+          <div id="expenseSummary"></div>
+        </article>
+      </section>
+
+      <!-- NOTIFICACIONES -->
+      <section id="notificaciones" class="page-section hidden">
+        <article class="card">
+          <h2>Notificaciones</h2>
+          <div id="notificationList">
+            <p>No hay notificaciones nuevas.</p>
+          </div>
+        </article>
+      </section>
+
+      <!-- ASISTENTE -->
+      <section id="asistente" class="page-section hidden">
+        <article class="card chat-card">
+          <h2>✦ TITO IA</h2>
+          <p>Tu asistente para organizar el dinero.</p>
+
+          <div id="chatMessages" class="chat-messages">
+            <div class="bubble bot">
+              ¡Hola! Soy TITO IA. Podés preguntarme por tus
+              gastos, tu saldo o cómo organizar tus ahorros.
+            </div>
+          </div>
+
+          <form id="chatForm" class="chat-form">
+            <input id="chatInput" maxlength="300"
+              placeholder="Escribí tu pregunta..." required>
+            <button class="primary-btn" type="submit">Enviar</button>
+          </form>
+          <p class="notice">Asistente de demostración: sus respuestas
+            son predefinidas y no constituyen asesoramiento financiero.</p>
+        </article>
+      </section>
+
+      <footer>TITO BANK · Proyecto educativo · Operaciones simuladas</footer>
+    </main>
+  </div>
+
+</body>
+</html>
